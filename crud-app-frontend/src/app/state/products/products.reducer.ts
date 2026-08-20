@@ -36,7 +36,7 @@ export const productsReducer = createReducer(
         loading: true,
         error: null,
     })),
-    on(createProductSuccess, (state, { product }) => productsEntityAdapter.addOne(product, {
+    on(createProductSuccess, (state) => ({
         ...state,
         status: 'success',
         loading: false,
@@ -97,7 +97,7 @@ export const productsReducer = createReducer(
         loading: true,
         error: null,
     })),
-    on(updateProductSuccess, (state, { product }) => productsEntityAdapter.updateOne({ id: product.id, changes: product }, {
+    on(updateProductSuccess, (state) => ({
         ...state,
         status: 'success',
         loading: false,
@@ -116,7 +116,7 @@ export const productsReducer = createReducer(
         loading: true,
         error: null,
     })),
-    on(deleteProductSuccess, (state, { id }) => productsEntityAdapter.removeOne(id, {
+    on(deleteProductSuccess, (state) => ({
         ...state,
         status: 'success',
         loading: false,
