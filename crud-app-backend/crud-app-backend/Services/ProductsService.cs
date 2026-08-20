@@ -92,16 +92,17 @@ public class ProductsService(AppDbContext db) : IProductsService
         return true;
     }
 
-    private static IQueryable<Product> ApplySorting(IQueryable<Product> products, string sortBy, string sortDirection)
+    private static IQueryable<Product> ApplySorting(
+        IQueryable<Product> products, string? sortBy, string? sortDirection)
     {
-        var isAscending = string.Equals(sortDirection, "asc", StringComparison.OrdinalIgnoreCase);
+        var isAscending = !string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase);
 
         return sortBy?.ToLowerInvariant() switch
         {
-            "name" => isAscending ? products.OrderBy(product => product.Name) : products.OrderByDescending(product => product.Name),
-            "price" => isAscending ? products.OrderBy(product => product.Price) : products.OrderByDescending(product => product.Price),
-            "description" => isAscending ? products.OrderBy(product => product.Description) : products.OrderByDescending(product => product.Description),
-            _ => isAscending ? products.OrderBy(product => product.Id) : products.OrderByDescending(product => product.Id)
+            "name" => isAscending ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name),
+            "price" => isAscending ? products.OrderBy(p => p.Price) : products.OrderByDescending(p => p.Price),
+            "description" => isAscending ? products.OrderBy(p => p.Description) : products.OrderByDescending(p => p.Description),
+            _ => isAscending ? products.OrderBy(p => p.Id) : products.OrderByDescending(p => p.Id)
         };
     }
 }

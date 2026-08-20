@@ -3,10 +3,10 @@ import { Actions, CreateEffectMetadata, createEffect, ofType } from '@ngrx/effec
 import { Action } from '@ngrx/store';
 import { ProductsService } from "../../core/services/products.service";
 import { createProduct, createProductFailure, createProductSuccess, getProducts, getProductsFailure, getProductsSuccess, updateProductSuccess, updateProductFailure, updateProduct, getProductById, getProductByIdFailure, getProductByIdSuccess, deleteProductFailure, deleteProductSuccess, deleteProduct } from "./products.actions";
-import { map } from "rxjs/internal/operators/map";
-import { catchError } from "rxjs/internal/operators/catchError";
-import { mergeMap } from "rxjs/internal/operators/mergeMap";
-import { switchMap } from "rxjs/internal/operators/switchMap";
+import { map } from "rxjs";
+import { catchError } from "rxjs";
+import { mergeMap } from "rxjs";
+import { switchMap } from "rxjs";
 import { of } from "rxjs/internal/observable/of";
 import { Observable } from 'rxjs';
 

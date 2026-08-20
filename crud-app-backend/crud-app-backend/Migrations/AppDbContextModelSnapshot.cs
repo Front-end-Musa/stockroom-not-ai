@@ -35,11 +35,13 @@ namespace crud_app_backend.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
@@ -52,7 +54,11 @@ namespace crud_app_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", t =>
+                        {
+                            t.HasCheckConstraint("CK_Products_Price_Positive", "\"Price\" > 0");
+                            t.HasCheckConstraint("CK_Products_Quantity_NonNegative", "\"Quantity\" >= 0");
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -121,3 +121,11 @@ C:\Users\rufat\OneDrive\Documents\projects\crud_app\crud-app-backend\crud-app-ba
 C:\Users\rufat\OneDrive\Documents\projects\crud_app\crud-app-backend\crud-app-backend\obj\Debug\net10.0\crud-app-backend.pdb
 C:\Users\rufat\OneDrive\Documents\projects\crud_app\crud-app-backend\crud-app-backend\obj\Debug\net10.0\crud-app-backend.genruntimeconfig.cache
 C:\Users\rufat\OneDrive\Documents\projects\crud_app\crud-app-backend\crud-app-backend\obj\Debug\net10.0\ref\crud-app-backend.dll
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\appsettings.Development.json
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\appsettings.json
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\crud-app-backend.staticwebassets.endpoints.json
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\crud-app-backend.exe
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\crud-app-backend.deps.json
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\crud-app-backend.runtimeconfig.json
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\crud-app-backend.dll
+C:\Users\rufat\AppData\Local\Temp\crud-app-validation\crud-app-backend.pdb
