@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Product, ProductRequest, ProductsQuery } from "../../shared/models/product.interface";
-import { Observable } from "rxjs/internal/Observable";
+import { Observable } from "rxjs";
 import { selectProducts, selectProductsLoading, selectProductsError, selectProductsStatus, selectProductsTotalCount, selectSelectedProduct } from "./products.selectors";
 import { createProduct, getProducts, getProductById, updateProduct, deleteProduct } from "./products.actions";
 
