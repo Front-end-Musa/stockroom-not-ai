@@ -22,7 +22,13 @@ namespace crud_app_backend.Dtos
         decimal Price,
 
         [param: Range(0, int.MaxValue)]
-        int Quantity);
+        int Quantity) : IValidatableObject
+    {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return ProductRequestValidation.ValidateRequiredText(Name, Description);
+        }
+    }
 
     public record UpdateProductRequestDto(
         [param: Required, StringLength(100)]
@@ -35,7 +41,13 @@ namespace crud_app_backend.Dtos
         decimal Price,
 
         [param: Range(0, int.MaxValue)]
-        int Quantity);
+        int Quantity) : IValidatableObject
+    {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return ProductRequestValidation.ValidateRequiredText(Name, Description);
+        }
+    }
 
     public record ProductQueryDto(
         string? Search = null,
@@ -68,6 +80,26 @@ namespace crud_app_backend.Dtos
                 yield return new ValidationResult(
                     "sortDirection must be either asc or desc.",
                     new[] { nameof(SortDirection) });
+            }
+        }
+    }
+
+    internal static class ProductRequestValidation
+    {
+        public static IEnumerable<ValidationResult> ValidateRequiredText(string name, string description)
+        {
+            if (string.IsNullOrEmpty(name?.Trim()))
+            {
+                yield return new ValidationResult(
+                    "Name must contain non-whitespace characters.",
+                    new[] { "Name" });
+            }
+
+            if (string.IsNullOrEmpty(description?.Trim()))
+            {
+                yield return new ValidationResult(
+                    "Description must contain non-whitespace characters.",
+                    new[] { "Description" });
             }
         }
     }

@@ -50,8 +50,8 @@ public class ProductsService(AppDbContext db) : IProductsService
     {
         var product = new Product
         {
-            Name = productRequestDto.Name,
-            Description = productRequestDto.Description,
+            Name = productRequestDto.Name.Trim(),
+            Description = productRequestDto.Description.Trim(),
             Price = productRequestDto.Price,
             Quantity = productRequestDto.Quantity,
             CreatedAt = DateTime.UtcNow,
@@ -69,8 +69,8 @@ public class ProductsService(AppDbContext db) : IProductsService
         var product = await db.Products.FindAsync(id)
             ?? throw new KeyNotFoundException($"Product with ID {id} not found.");
 
-        product.Name = productUpdateDto.Name;
-        product.Description = productUpdateDto.Description;
+        product.Name = productUpdateDto.Name.Trim();
+        product.Description = productUpdateDto.Description.Trim();
         product.Price = productUpdateDto.Price;
         product.Quantity = productUpdateDto.Quantity;
         product.UpdatedAt = DateTime.UtcNow;
