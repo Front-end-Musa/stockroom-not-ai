@@ -121,8 +121,8 @@ Base route: `/api/products`
 | `search` | — | Case-insensitive partial match against name or description |
 | `pageNumber` | `1` | Minimum `1` |
 | `pageSize` | `10` | Between `1` and `100` |
-| `sortBy` | ID | `name`, `price`, or `description`; other values sort by ID |
-| `sortDirection` | `asc` | Use `asc` for ascending; any other value sorts descending |
+| `sortBy` | ID | `name` or `price` |
+| `sortDirection` | `asc` | `asc` for ascending or `desc` for descending |
 
 Example:
 

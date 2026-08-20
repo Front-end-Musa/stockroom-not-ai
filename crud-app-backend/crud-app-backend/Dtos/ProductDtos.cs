@@ -64,7 +64,7 @@ namespace crud_app_backend.Dtos
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            var allowedSortFields = new[] { "id", "name", "price", "description" };
+            var allowedSortFields = new[] { "name", "price" };
 
             if (!string.IsNullOrWhiteSpace(SortBy) &&
                 !allowedSortFields.Contains(SortBy, StringComparer.OrdinalIgnoreCase))

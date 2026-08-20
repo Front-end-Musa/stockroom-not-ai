@@ -101,7 +101,6 @@ public class ProductsService(AppDbContext db) : IProductsService
         {
             "name" => isAscending ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name),
             "price" => isAscending ? products.OrderBy(p => p.Price) : products.OrderByDescending(p => p.Price),
-            "description" => isAscending ? products.OrderBy(p => p.Description) : products.OrderByDescending(p => p.Description),
             _ => isAscending ? products.OrderBy(p => p.Id) : products.OrderByDescending(p => p.Id)
         };
     }
