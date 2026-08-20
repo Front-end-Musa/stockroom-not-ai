@@ -7,7 +7,7 @@ import { map } from "rxjs";
 import { catchError } from "rxjs";
 import { mergeMap } from "rxjs";
 import { switchMap } from "rxjs";
-import { of } from "rxjs/internal/observable/of";
+import { of } from "rxjs";
 import { Observable } from 'rxjs';
 
 @Injectable({

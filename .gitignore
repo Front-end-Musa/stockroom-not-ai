@@ -58,3 +58,8 @@ TestResults/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# AI related folders
+.agents/
+.opencode/
+.impeccable/

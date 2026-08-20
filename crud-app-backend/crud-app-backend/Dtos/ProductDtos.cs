@@ -47,9 +47,10 @@ namespace crud_app_backend.Dtos
         int PageSize = 10,
 
         string? SortBy = null,
-        string? SortDirection = "asc");
+        string? SortDirection = "asc") : IValidatableObject
+    {
 
-         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var allowedSortFields = new[] { "id", "name", "price", "description" };
 
@@ -69,4 +70,5 @@ namespace crud_app_backend.Dtos
                     new[] { nameof(SortDirection) });
             }
         }
+    }
 }
