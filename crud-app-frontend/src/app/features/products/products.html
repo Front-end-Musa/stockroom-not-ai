@@ -1,0 +1,155 @@
+<main class="workspace">
+  <section class="ledger" aria-labelledby="products-title">
+    <header class="page-header">
+      <div>
+        <h1 id="products-title">Products</h1>
+        <p>Keep your stockroom catalog accurate and ready to receive.</p>
+      </div>
+
+      <button class="add" type="button" (click)="startAdd()">Add product</button>
+    </header>
+
+    <div class="toolbar">
+      <label class="search-field">
+        <span class="sr-only">Search products</span>
+        <input
+          [ngModel]="query()"
+          (ngModelChange)="query.set($event); updateFilters()"
+          placeholder="Search products">
+      </label>
+
+      <label class="sort-field">
+        Sort by
+        <select [ngModel]="sort()" (ngModelChange)="sort.set($event); updateFilters()">
+          <option value="name">Name</option>
+          <option value="price">Price</option>
+        </select>
+        <select [ngModel]="direction()" (ngModelChange)="direction.set($event); updateFilters()">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </label>
+
+      <span class="result-count">
+        {{ totalCount() }} {{ totalCount() === 1 ? 'product' : 'products' }}
+      </span>
+    </div>
+
+    <div class="table-shell">
+      <div class="columns" aria-hidden="true">
+        <span>Product</span>
+        <span>Description</span>
+        <span>Price</span>
+        <span>Quantity</span>
+        <span>Created</span>
+        <span>Updated</span>
+      </div>
+
+      @if (loading()) {
+        <div class="empty">
+          <h2>Loading products</h2>
+          <p>Retrieving your stockroom catalog.</p>
+        </div>
+      } @else if (error()) {
+        <div class="empty">
+          <h2>Products could not be loaded</h2>
+          <p>Please check the connection and try again.</p>
+          <button class="add" type="button" (click)="reload()">Try again</button>
+        </div>
+      } @else if (products().length) {
+        @for (product of products(); track product.id) {
+          <button class="product-row" type="button" (click)="edit(product)">
+            <strong>{{ product.name }}</strong>
+            <span>{{ product.description || 'No description' }}</span>
+            <b>{{ product.price | currency:'USD' }}</b>
+            <span>{{ product.quantity }}</span>
+            <time>{{ product.createdAt | date:'MMM d, y' }}</time>
+            <time>{{ product.updatedAt | date:'MMM d, y, HH:mm' }}</time>
+          </button>
+        }
+
+        <nav class="pagination" aria-label="Products pagination">
+          <span>Showing {{ pageStart() }}–{{ pageEnd() }} of {{ totalCount() }}</span>
+          <div>
+            <button type="button" (click)="goToPage(pageNumber() - 1)" [disabled]="pageNumber() === 1">
+              Previous
+            </button>
+            <span>Page {{ pageNumber() }} of {{ totalPages() }}</span>
+            <button type="button" (click)="goToPage(pageNumber() + 1)" [disabled]="pageNumber() === totalPages()">
+              Next
+            </button>
+          </div>
+        </nav>
+      } @else {
+        <div class="empty">
+          <h2>No products yet</h2>
+          <p>Add your first product to start building the stockroom catalog.</p>
+          <button class="add" type="button" (click)="startAdd()">Add product</button>
+        </div>
+      }
+    </div>
+  </section>
+
+  <aside class="editor" aria-labelledby="editor-title">
+    <div class="editor-heading">
+      <span class="editor-status"></span>
+      <p>{{ editing() ? 'Editing product' : 'New product' }}</p>
+    </div>
+
+    <h2 id="editor-title">{{ editing() ? editing()!.name : 'Add a product' }}</h2>
+    <p class="editor-intro">
+      {{ editing() ? 'Update the product details below.' : 'Add an item to your stockroom catalog.' }}
+    </p>
+
+    <div class="form-fields">
+      <label>
+        Name
+        <input
+          [ngModel]="form().name"
+          (ngModelChange)="form.set({...form(), name: $event})"
+          placeholder="e.g. Wireless Mouse">
+      </label>
+
+      <label>
+        Description
+        <input
+          [ngModel]="form().description"
+          (ngModelChange)="form.set({...form(), description: $event})"
+          placeholder="A short product description">
+      </label>
+
+      <label>
+        Price
+        <span class="price-input">
+          <span>$</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            [ngModel]="form().price"
+            (ngModelChange)="form.set({...form(), price: +$event})">
+        </span>
+      </label>
+
+      <label>
+        Quantity
+        <input
+          type="number"
+          min="0"
+          step="1"
+          [ngModel]="form().quantity"
+          (ngModelChange)="form.set({...form(), quantity: +$event})">
+      </label>
+    </div>
+
+    <div class="editor-actions">
+      <button class="save" type="button" (click)="save()">
+        {{ editing() ? 'Save changes' : 'Add product' }}
+      </button>
+
+      @if (editing()) {
+        <button class="delete" type="button" (click)="remove()">Delete product</button>
+      }
+    </div>
+  </aside>
+</main>

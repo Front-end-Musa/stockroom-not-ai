@@ -1,0 +1,76 @@
+{
+  "title": "Choose the Products workspace direction",
+  "question": "Each option supports the same stockroom tasks. Choose the visual system that best fits how shop teams work.",
+  "options": [
+    {
+      "id": "assigned-bin-card-system",
+      "label": "Stockroom bin-card system",
+      "kicker": "THE ROLL",
+      "lineage": "warehouse bin cards and receiving labels",
+      "thesis": "A live shelf of precise inventory cards, built for scanning while standing in the stockroom.",
+      "palette": ["#10212B", "#E3F0E6", "#F3A63B", "#F8F6EE"],
+      "materials": ["tough label stock", "shelf-edge color bands", "stamped status marks"],
+      "viewport": "A dark utility rail anchors the page while large product rows line up like labeled bin cards; search and Add product live at the top edge.",
+      "risk": "Requires disciplined density so it stays operational rather than decorative.",
+      "raised": [
+        {"from": "Miura-fold challenger", "raise": "Linked detail panels unfold in crisp steps instead of opening generic modal dialogs."},
+        {"from": "boxed-manual challenger", "raise": "Errors and pending saves use physical, unmistakable status slips."}
+      ],
+      "comp": ".impeccable/mocks/decision/products-bin-card-system.png",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet.webp"
+    },
+    {
+      "id": "model-pick-receiving-ledger",
+      "label": "Receiving ledger",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "wholesale receiving ledgers and order stamps",
+      "thesis": "The stockroom as a bold, modern intake ledger where every change has a clear, durable trace.",
+      "palette": ["#153A34", "#FBF3D9", "#ED6B3A", "#2A1F1A"],
+      "materials": ["inked ruled paper", "rubber receipt stamps", "section-colored ledger tabs"],
+      "viewport": "A full-height product ledger fills the work area, with a tall add-product slip pinned at the right and a visible activity trace for created and updated dates.",
+      "risk": "More characterful than familiar admin software; dates must remain exceptionally easy to scan.",
+      "comp": ".impeccable/mocks/decision/products-receiving-ledger.png"
+    },
+    {
+      "id": "challenger-manual-tabs",
+      "label": "Tabbed reference manual",
+      "verdict": "competitive",
+      "lineage": "boxed-software reference manuals with acetate leaves",
+      "thesis": "Products become a clear reference system: tabs locate categories, and an edit sheet sits visibly above the list.",
+      "palette": ["#1C1E23", "#F3C400", "#69A96B", "#F7F3E8"],
+      "materials": ["acetate overlays", "punched paper", "bold divider board"],
+      "viewport": "A tab rail marks the active catalog section; product details expand as a transparent reading leaf over the row beneath.",
+      "case": "Excellent for details and errors; slightly less immediate for rapid scanning than shelf-style rows.",
+      "risk": "The overlay treatment needs careful contrast to preserve accessibility.",
+      "comp": ".impeccable/mocks/decision/products-manual-tabs.png",
+      "hero": "https://impeccable.style/worlds/cards/rw-manual-acetate-tab-board-hero.webp"
+    },
+    {
+      "id": "challenger-miura-fold",
+      "label": "Deployable stock sheet",
+      "verdict": "declined",
+      "lineage": "Miura-fold deployable technical sheets",
+      "palette": ["#F9F8F2", "#C79A27", "#7EA3B5", "#18202A"],
+      "materials": ["scored folds", "technical graph lines", "foil index markers"],
+      "viewport": "A product row deploys into a connected detail plane.",
+      "case": "Too spatial for a list staff need to scan repeatedly.",
+      "kept": "Crisp, linked transitions for product detail.",
+      "risk": "Novelty can distract from the stockroom task.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "comp", "toggle": true},
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A clean, neutral data table with a familiar toolbar and modal editor.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB"],
+    "materials": ["clean grid", "quiet dividers"],
+    "viewport": "A conventional product table with search, filters, and an Add product button.",
+    "risk": "Highly familiar, but indistinguishable from generic admin tools.",
+    "comp": ".impeccable/mocks/decision/products-canon.png"
+  },
+  "steer": true
+}
