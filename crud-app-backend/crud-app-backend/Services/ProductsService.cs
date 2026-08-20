@@ -1,15 +1,22 @@
 using crud_app_backend.Data;
 using crud_app_backend.Dtos;
 using crud_app_backend.Models;
-using crud_app_backend.Mappings;
-using crud_app_backend.Services.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace crud_app_backend.Services;
 
+public interface IProductsService
+{
+    Task<Product> CreateProductAsync(Product product);
+    Task<Product> GetProductByIdAsync(int id);
+    Task<PagedResponseDto<Product>> GetProductsAsync(ProductQueryDto queryDto);
+    Task<Product> UpdateProductAsync(int id, Product product);
+    Task<bool> DeleteProductAsync(int id);
+}
+
 public class ProductsService(AppDbContext db) : IProductsService
 {
-    public async Task<PagedResponseDto<ProductResponseDto>> GetProductsAsync(ProductQueryDto queryDto)
+    public async Task<PagedResponseDto<Product>> GetProductsAsync(ProductQueryDto queryDto)
     {
         var productsQuery = db.Products.AsNoTracking().AsQueryable();
         
@@ -29,54 +36,49 @@ public class ProductsService(AppDbContext db) : IProductsService
             .Take(queryDto.PageSize)
             .ToListAsync();
         
-        return new PagedResponseDto<ProductResponseDto>(
-            products.Select(product => product.ToProductResponseDto()),
+        return new PagedResponseDto<Product>(
+            products,
             totalCount,
             queryDto.PageNumber,
             queryDto.PageSize);
     }
 
-    public async Task<ProductResponseDto> GetProductByIdAsync(int id)
+    public async Task<Product> GetProductByIdAsync(int id)
     {
         var product = await db.Products.FindAsync(id);
         if (product == null)
         {
             throw new KeyNotFoundException($"Product with ID {id} not found.");
         }
-        return product.ToProductResponseDto();
+        return product;
     }
 
-    public async Task<ProductResponseDto> CreateProductAsync(CreateProductRequestDto productRequestDto)
+    public async Task<Product> CreateProductAsync(Product product)
     {
-        var product = new Product
-        {
-            Name = productRequestDto.Name.Trim(),
-            Description = productRequestDto.Description.Trim(),
-            Price = productRequestDto.Price,
-            Quantity = productRequestDto.Quantity,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        };
+        product.Name = product.Name.Trim();
+        product.Description = product.Description.Trim();
+        product.CreatedAt = DateTime.UtcNow;
+        product.UpdatedAt = DateTime.UtcNow;
 
         db.Products.Add(product);
         await db.SaveChangesAsync();
 
-        return product.ToProductResponseDto();
+        return product;
     }
 
-    public async Task<ProductResponseDto> UpdateProductAsync(int id, UpdateProductRequestDto productUpdateDto)
+    public async Task<Product> UpdateProductAsync(int id, Product updatedProduct)
     {
         var product = await db.Products.FindAsync(id)
             ?? throw new KeyNotFoundException($"Product with ID {id} not found.");
 
-        product.Name = productUpdateDto.Name.Trim();
-        product.Description = productUpdateDto.Description.Trim();
-        product.Price = productUpdateDto.Price;
-        product.Quantity = productUpdateDto.Quantity;
+        product.Name = updatedProduct.Name.Trim();
+        product.Description = updatedProduct.Description.Trim();
+        product.Price = updatedProduct.Price;
+        product.Quantity = updatedProduct.Quantity;
         product.UpdatedAt = DateTime.UtcNow;
 
         await db.SaveChangesAsync();
-        return product.ToProductResponseDto();
+        return product;
     }
 
     public async Task<bool> DeleteProductAsync(int id)

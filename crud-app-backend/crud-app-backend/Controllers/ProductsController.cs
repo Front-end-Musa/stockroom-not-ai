@@ -1,32 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
 using crud_app_backend.Dtos;
-using crud_app_backend.Services.interfaces;
+using crud_app_backend.Models;
+using AutoMapper;
 
 namespace crud_app_backend.Controllers;
 [ApiController]
 [Route("api/products")]
-public class ProductsController(IProductsService productsService) : ControllerBase
+public class ProductsController(IProductsService productsService, IMapper mapper) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<PagedResponseDto<ProductResponseDto>>> GetAllProducts(
         [FromQuery] ProductQueryDto queryDto)
     {
-        return Ok(await productsService.GetProductsAsync(queryDto));
+        var products = await productsService.GetProductsAsync(queryDto);
+        var response = new PagedResponseDto<ProductResponseDto>(
+            mapper.Map<IEnumerable<ProductResponseDto>>(products.Items),
+            products.TotalCount,
+            products.PageNumber,
+            products.PageSize);
+
+        return Ok(response);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductResponseDto>> GetProductById(int id)
     {
             var product = await productsService.GetProductByIdAsync(id);
-            return Ok(product);
+            return Ok(mapper.Map<ProductResponseDto>(product));
     }
 
     [HttpPost]
     public async Task<ActionResult<ProductResponseDto>> CreateProduct(
         [FromBody] CreateProductRequestDto productRequestDto)
     {
-        var createdProduct = await productsService.CreateProductAsync(productRequestDto);
-        return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
+        var product = mapper.Map<Product>(productRequestDto);
+        var createdProduct = await productsService.CreateProductAsync(product);
+        var response = mapper.Map<ProductResponseDto>(createdProduct);
+        return CreatedAtAction(nameof(GetProductById), new { id = response.Id }, response);
     }
 
     [HttpPut("{id}")]
@@ -34,8 +44,9 @@ public class ProductsController(IProductsService productsService) : ControllerBa
         int id,
         [FromBody] UpdateProductRequestDto productUpdateDto)
     {
-            var updatedProduct = await productsService.UpdateProductAsync(id, productUpdateDto);
-            return Ok(updatedProduct);
+            var product = mapper.Map<Product>(productUpdateDto);
+            var updatedProduct = await productsService.UpdateProductAsync(id, product);
+            return Ok(mapper.Map<ProductResponseDto>(updatedProduct));
     }
 
     [HttpDelete("{id}")]

@@ -7,7 +7,7 @@ A full-stack CRUD application for maintaining a shop's stockroom product catalog
 | Area | Implementation |
 | --- | --- |
 | Frontend | Angular 22, TypeScript, SCSS, SSR |
-| Client state | NgRx Store, Effects, and Entity |
+| Client state | Component signals with direct API service calls |
 | Backend | ASP.NET Core (.NET 10) |
 | Data access | Entity Framework Core 10 |
 | Database | PostgreSQL with Npgsql |
@@ -21,7 +21,6 @@ crud_app/
 │       ├── core/                       # API configuration, interceptor, HTTP service
 │       ├── features/products/          # Inventory workspace UI
 │       ├── shared/models/              # API-facing TypeScript types
-│       └── state/products/             # NgRx actions, effects, reducer, selectors, facade
 ├── crud-app-backend/
 │   ├── crud-app-backend.slnx           # .NET solution
 │   └── crud-app-backend/

@@ -1,19 +1,15 @@
 using crud_app_backend.Dtos;
 using crud_app_backend.Models;
+using AutoMapper;
 
 namespace crud_app_backend.Mappings;
-public static class ModelMappings
+
+public class ProductMappingProfile : Profile
 {
-    public static ProductResponseDto ToProductResponseDto(this Product product)
+    public ProductMappingProfile()
     {
-        return new ProductResponseDto(
-            product.Id,
-            product.Name,
-            product.Description,
-            product.Price,
-            product.Quantity,
-            product.CreatedAt,
-            product.UpdatedAt
-        );
+        CreateMap<Product, ProductResponseDto>();
+        CreateMap<CreateProductRequestDto, Product>();
+        CreateMap<UpdateProductRequestDto, Product>();
     }
 }

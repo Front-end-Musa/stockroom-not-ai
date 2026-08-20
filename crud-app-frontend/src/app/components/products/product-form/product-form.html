@@ -1,0 +1,43 @@
+<aside class="editor" aria-labelledby="editor-title">
+  <div class="editor-heading">
+    <span class="editor-status"></span>
+    <p>{{ isEdit() ? 'Editing product' : 'New product' }}</p>
+  </div>
+
+  <h2 id="editor-title">{{ isEdit() ? product()!.name : 'Add a product' }}</h2>
+  <p class="editor-intro">
+    {{ isEdit() ? 'Update the product details below.' : 'Add an item to your stockroom catalog.' }}
+  </p>
+
+  <div class="form-fields">
+    <label>
+      Name
+      <input [ngModel]="form().name" (ngModelChange)="form.set({...form(), name: $event})" placeholder="e.g. Wireless Mouse">
+    </label>
+
+    <label>
+      Description
+      <input [ngModel]="form().description" (ngModelChange)="form.set({...form(), description: $event})" placeholder="A short product description">
+    </label>
+
+    <label>
+      Price
+      <span class="price-input">
+        <span>$</span>
+        <input type="number" min="0" step="0.01" [ngModel]="form().price" (ngModelChange)="form.set({...form(), price: +$event})">
+      </span>
+    </label>
+
+    <label>
+      Quantity
+      <input type="number" min="0" step="1" [ngModel]="form().quantity" (ngModelChange)="form.set({...form(), quantity: +$event})">
+    </label>
+  </div>
+
+  <div class="editor-actions">
+    <button class="save" type="button" (click)="submit()">{{ isEdit() ? 'Save changes' : 'Add product' }}</button>
+    @if (isEdit()) {
+      <button class="delete" type="button" (click)="deleteProduct.emit()">Delete product</button>
+    }
+  </div>
+</aside>

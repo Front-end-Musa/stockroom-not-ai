@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { PagedResponse, Product, ProductRequest, ProductsQuery } from "../../shared/models/product.interface";
+import { PagedResponse, Product, ProductRequest, ProductsQuery } from "../models/product.interface";
 import { Observable } from "rxjs";
 
 @Injectable({

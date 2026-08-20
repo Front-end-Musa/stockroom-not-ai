@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideStore } from '@ngrx/store';
-
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Products } from './products';
-import { productsReducer } from '../../state/products/products.reducer';
 
 describe('Products', () => {
   let component: Products;
@@ -11,15 +10,15 @@ describe('Products', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Products],
-      providers: [provideStore({ products: productsReducer })],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Products);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('creates', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { provideStore } from '@ngrx/store';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { App } from './app';
-import { productsReducer } from './state/products/products.reducer';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideStore({ products: productsReducer })],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
   });
 
